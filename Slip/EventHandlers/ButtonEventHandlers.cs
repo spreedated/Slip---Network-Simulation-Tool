@@ -1,8 +1,9 @@
-﻿using System.Windows;
+﻿using Slip.Theming;
+using Slip.Utils;
+using Slip.Views;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using Slip.Theming;
-using Slip.Utils;
 
 namespace Slip.EventHandlers
 {
@@ -11,7 +12,7 @@ namespace Slip.EventHandlers
         private MainWindow _mainWindow;
         private bool stopped = true;
         private const string LIGHT_THEME_URI = "pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.light.xaml";
-        
+
         internal bool Stopped
         {
             get { return stopped; }
@@ -28,7 +29,7 @@ namespace Slip.EventHandlers
         {
             StartEventHandler();
             ChangeThemeEventHandler();
-            
+
             TrafficShaperEventHandlers();
             ShuffleEventHandlers();
             DuplicateEventHandlers();
@@ -92,9 +93,8 @@ namespace Slip.EventHandlers
         {
             toggleButton.Click += eventHandler;
         }
-        
 
-        private void StartButton_OnClick(object sender, RoutedEventArgs e)
+        internal void StartButton_OnClick(object sender, RoutedEventArgs e)
         {
             if (ApplicationState.IsProgramRunning(_mainWindow.startButton))
             {
@@ -104,7 +104,7 @@ namespace Slip.EventHandlers
             {
                 string filter = Filter.GetFilter(_mainWindow.CustomCheckbox.IsChecked.Value,
                     _mainWindow.customFilter.Text, _mainWindow.ModuleConfigManager.GetFilter());
-                
+
                 if (!Filter.ValidateFilter(filter)) return;
 
                 if (!_mainWindow.SimulationController.StartSimulation(filter, ref stopped))
@@ -124,42 +124,42 @@ namespace Slip.EventHandlers
              * to change the theme and change the background color of the tabControl
              * respectively, this way it makes the code more maintainable, testable, and extendable.
              */
-            
+
             IThemeChanger themeChanger;
             IBackgroundChanger backgroundChanger;
-            
+
             // Currently it's light, set to dark
             if (Application.Current.Resources.MergedDictionaries[0].Source.AbsoluteUri == LIGHT_THEME_URI)
             {
                 themeChanger = new DarkThemeChanger();
                 backgroundChanger = new BackgroundChanger(_mainWindow.tabControl, "#FF1E1E1E");
             }
-            
+
             // It's dark, set to light theme
             else
             {
                 themeChanger = new LightThemeChanger();
                 backgroundChanger = new BackgroundChanger(_mainWindow.tabControl, "#ECECEC");
-                
+
             }
-            
+
             themeChanger.ChangeTheme();
             backgroundChanger.ChangeBackground();
         }
-        
+
         private void ApplyLagChance_OnClick(object sender, RoutedEventArgs e)
         {
             SliderUtils.ApplySliderValue(_mainWindow.lagChanceButton, _mainWindow.lagTextbox,
                 _mainWindow.lagLabel, _mainWindow.lagSlider, Utils.Utils.CheckIfNumber, Utils.Utils.ShowLagValue);
         }
-        
+
         private void DropChanceButtonOnClick(object sender, RoutedEventArgs e)
         {
             SliderUtils.ApplySliderValue(_mainWindow.dropChanceButton, _mainWindow.dropTextbox,
                 _mainWindow.dropLabel, _mainWindow.dropChanceSlider, Utils.Utils.CheckIfNumberAndWithinRange,
                 Utils.Utils.ShowChanceValue);
         }
-        
+
         private void ThrottleChanceButtonOnClick(object sender, RoutedEventArgs e)
         {
             SliderUtils.ApplySliderValue(_mainWindow.throttleChanceButton, _mainWindow.throttleTextbox,
@@ -173,7 +173,7 @@ namespace Slip.EventHandlers
                 _mainWindow.encryptLabel, _mainWindow.encryptChanceSlider,
                 Utils.Utils.CheckIfNumberAndWithinRange, Utils.Utils.ShowChanceValue);
         }
-        
+
         private void ShuffleChanceButton_OnClick(object sender, RoutedEventArgs e)
         {
             SliderUtils.ApplySliderValue(_mainWindow.shuffleChanceButton, _mainWindow.shuffleTextbox,
@@ -188,7 +188,7 @@ namespace Slip.EventHandlers
                 _mainWindow.duplicateLabel, _mainWindow.duplicateChanceSlider, Utils.Utils.CheckIfNumberAndWithinRange,
                 Utils.Utils.ShowChanceValue);
         }
-        
+
         private void TShaperChanceButton_OnClick(object sender, RoutedEventArgs e)
         {
             SliderUtils.ApplySliderValue(_mainWindow.tShaperChanceButton,

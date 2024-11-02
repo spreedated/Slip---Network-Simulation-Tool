@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using System.Threading;
 using System.Windows;
 
@@ -15,7 +14,7 @@ namespace Slip.Console
             get { return _consoleProcess; }
             set { _consoleProcess = value; }
         }
-            
+
         internal static bool OpenConsole()
         {
             string exeName = "SlipClient.exe";
@@ -25,7 +24,7 @@ namespace Slip.Console
             if (File.Exists(exePath))
             {
                 // Check if PipeReader DLL exist on the directory before running the SlipClient console
-                string dllPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "PipeReader.dll");
+                string dllPath = Path.Combine(Path.GetDirectoryName(AppContext.BaseDirectory), "PipeReader.dll");
 
                 if (!File.Exists(dllPath))
                 {
@@ -33,7 +32,7 @@ namespace Slip.Console
                     MessageBox.Show("PipeReader dll not found in the current directory.");
                     return false;
                 }
-                
+
                 ConsoleProcess = Process.Start(exePath);
 
                 // Make sure that the C# ReadFromPipe() code is running

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Slip.Views;
+using System;
 using System.Collections.Generic;
 
 namespace Slip.Modules
@@ -17,7 +18,7 @@ namespace Slip.Modules
             List<Config> configList = new List<Config>();
 
             Config? lagConfig = GetLagConfig();
-            if (lagConfig != null) configList.Add((Config) lagConfig);
+            if (lagConfig != null) configList.Add((Config)lagConfig);
 
             Config? dropConfig = GetDropConfig();
             if (dropConfig != null) configList.Add((Config)dropConfig);
@@ -30,7 +31,7 @@ namespace Slip.Modules
 
             Config? shuffleConfig = GetShuffleConfig();
             if (shuffleConfig != null) configList.Add((Config)shuffleConfig);
-            
+
             Config? duplicateConfig = GetDuplicateConfig();
             if (duplicateConfig != null) configList.Add((Config)duplicateConfig);
 
@@ -46,7 +47,7 @@ namespace Slip.Modules
                 _mainWindow.lagInbound.IsChecked.Value,
                 _mainWindow.lagOutbound.IsChecked.Value,
                 0,
-                (float) _mainWindow.lagSlider.Value,
+                (float)_mainWindow.lagSlider.Value,
                 0,
                 false,
                 SimulationType.Lag);
@@ -57,7 +58,7 @@ namespace Slip.Modules
             return GetConfig(_mainWindow.dropToggle.IsChecked.Value,
                 _mainWindow.dropInbound.IsChecked.Value,
                 _mainWindow.dropOutbound.IsChecked.Value,
-                (float) _mainWindow.dropChanceSlider.Value,
+                (float)_mainWindow.dropChanceSlider.Value,
                 0,
                 0,
                 false,
@@ -69,8 +70,8 @@ namespace Slip.Modules
             return GetConfig(_mainWindow.throttleToggle.IsChecked.Value,
                 _mainWindow.throttleInbound.IsChecked.Value,
                 _mainWindow.throttleOutbound.IsChecked.Value,
-                (float) _mainWindow.throttleChanceSlider.Value,
-                (float)Convert.ToDouble(_mainWindow.delayTextbox.Text), 
+                (float)_mainWindow.throttleChanceSlider.Value,
+                (float)Convert.ToDouble(_mainWindow.delayTextbox.Text),
                 0,
                 _mainWindow.throttleDropCheckbox.IsChecked.Value,
                 SimulationType.Throttle);
@@ -81,7 +82,7 @@ namespace Slip.Modules
             return GetConfig(_mainWindow.encryptToggle.IsChecked.Value,
                 _mainWindow.encryptInbound.IsChecked.Value,
                 _mainWindow.encryptOutbound.IsChecked.Value,
-                (float) _mainWindow.encryptChanceSlider.Value,
+                (float)_mainWindow.encryptChanceSlider.Value,
                 0,
                 0,
                 false,
@@ -93,9 +94,9 @@ namespace Slip.Modules
             return GetConfig(_mainWindow.shuffleToggle.IsChecked.Value,
                 _mainWindow.shuffleInbound.IsChecked.Value,
                 _mainWindow.shuffleOutbound.IsChecked.Value,
-                (float) _mainWindow.shuffleChanceSlider.Value,
+                (float)_mainWindow.shuffleChanceSlider.Value,
                 0,
-                (int) _mainWindow.minPackets.Value,
+                (int)_mainWindow.minPackets.Value,
                 false,
                 SimulationType.Shuffle);
         }
@@ -105,9 +106,9 @@ namespace Slip.Modules
             return GetConfig(_mainWindow.duplicateToggle.IsChecked.Value,
                 _mainWindow.duplicateInbound.IsChecked.Value,
                 _mainWindow.duplicateOutbound.IsChecked.Value,
-                (float) _mainWindow.duplicateChanceSlider.Value,
+                (float)_mainWindow.duplicateChanceSlider.Value,
                 0,
-                (int) _mainWindow.numCopies.Value,
+                (int)_mainWindow.numCopies.Value,
                 false,
                 SimulationType.Duplicate);
         }
@@ -117,7 +118,7 @@ namespace Slip.Modules
             return GetConfig(_mainWindow.trafficShaperToggle.IsChecked.Value,
                 _mainWindow.trafficShaperInbound.IsChecked.Value,
                 _mainWindow.trafficShaperOutbound.IsChecked.Value,
-                (float) _mainWindow.trafficShaperChanceSlider.Value,
+                (float)_mainWindow.trafficShaperChanceSlider.Value,
                 0,
                 Convert.ToInt32(_mainWindow.speedLimitTextbox.Text),
                 false,

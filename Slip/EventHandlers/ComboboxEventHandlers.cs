@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Slip.Views;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Slip.EventHandlers

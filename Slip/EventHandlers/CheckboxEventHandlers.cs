@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Slip.Views;
+using System.Windows;
 
 namespace Slip.EventHandlers
 {
@@ -6,7 +7,7 @@ namespace Slip.EventHandlers
     {
         private UiEventHandlers _uiEventHandlers;
         private MainWindow _mainWindow;
-        
+
         internal CheckboxEventHandlers(UiEventHandlers uiEventHandlers, MainWindow mainWindow)
         {
             _uiEventHandlers = uiEventHandlers;
@@ -24,7 +25,7 @@ namespace Slip.EventHandlers
         private void CustomCheckbox_OnIsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (_mainWindow.CustomCheckbox == null) return;
-            
+
             if (_mainWindow.CustomCheckbox.IsChecked == true)
             {
                 _mainWindow.customFilter.IsEnabled = true;

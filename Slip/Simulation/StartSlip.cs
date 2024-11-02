@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Windows;
-using Slip.Interfaces;
+﻿using Slip.Interfaces;
 using Slip.Modules;
+using System.Collections.Generic;
+using System.Windows;
 
 namespace Slip.Simulation
 {
@@ -22,13 +22,13 @@ namespace Slip.Simulation
         {
             if (!fileExistence.CheckFileExistence())
             {
-                MessageBox.Show("Slip.dll not found in the current directory.");
+                MessageBox.Show("Slip2.dll not found in the current directory.");
                 return false;
             }
 
             List<Config> configList = moduleConfigManager.GetModulesConfig();
             Config[] configArray = configList.ToArray();
-            
+
             runSlip.Run(filter, configArray);
             return true;
         }

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Slip.Views;
+using System.Diagnostics;
 using System.Threading;
 
 namespace Slip.EventHandlers
@@ -7,12 +8,12 @@ namespace Slip.EventHandlers
     {
         private UiEventHandlers _uiEventHandlers;
         private MainWindow _mainWindow;
-        
+
         internal WindowEventHandlers(UiEventHandlers uiEventHandlers, MainWindow mainWindow)
         {
             _uiEventHandlers = uiEventHandlers;
             _mainWindow = mainWindow;
-            
+
             InitWindowEventHandlers();
         }
 
@@ -28,11 +29,11 @@ namespace Slip.EventHandlers
                 _mainWindow.SimulationController.StopSimulation();
                 Thread.Sleep(500);
             }
-            
+
             Process[] processes = Process.GetProcessesByName("SlipClient");
             if (processes.Length > 0)
                 processes[0].Kill();
-                //processes[0].CloseMainWindow();
+            //processes[0].CloseMainWindow();
             //consoleProcess.Kill();
         }
     }

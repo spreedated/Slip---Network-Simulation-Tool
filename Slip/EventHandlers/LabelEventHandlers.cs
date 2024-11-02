@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Slip.Views;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -7,7 +8,7 @@ namespace Slip.EventHandlers
     public class LabelEventHandlers
     {
         private MainWindow _mainWindow;
-        
+
         public LabelEventHandlers(MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
@@ -93,16 +94,16 @@ namespace Slip.EventHandlers
         {
             Utils.Utils.ShowHelperElements(_mainWindow.shuffleLabel, _mainWindow.shuffleChanceButton,
                 _mainWindow.shuffleTextbox, _mainWindow.shuffleChanceSlider);
-            
+
             _mainWindow.shuffleMinPacketsLabel.Visibility = Visibility.Hidden;
         }
-        
+
         private void DuplicateLabel_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Utils.Utils.ShowHelperElements(_mainWindow.duplicateLabel, _mainWindow.duplicateChanceButton,
                 _mainWindow.duplicateTextbox, _mainWindow.duplicateChanceSlider);
         }
-        
+
         private void TrafficShaperLabel_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Utils.Utils.ShowHelperElements(_mainWindow.trafficShaperLabel, _mainWindow.tShaperChanceButton,

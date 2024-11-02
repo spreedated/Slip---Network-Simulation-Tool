@@ -30,7 +30,7 @@ namespace Slip
             WindivertLayerNetwork = 0,
             WindivertLayerNetworkForward = 1
         }
-        
+
         internal static bool CheckFilter(string filter)
         {
             WindivertLayer layer = WindivertLayer.WindivertLayerNetwork;

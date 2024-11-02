@@ -1,4 +1,6 @@
-﻿namespace Slip.EventHandlers
+﻿using Slip.Views;
+
+namespace Slip.EventHandlers
 {
     internal class UiEventHandlers
     {

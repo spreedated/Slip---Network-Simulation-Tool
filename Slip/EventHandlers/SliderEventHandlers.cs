@@ -1,6 +1,7 @@
-﻿using System.Windows;
+﻿using Slip.Utils;
+using Slip.Views;
+using System.Windows;
 using System.Windows.Controls;
-using Slip.Utils;
 
 namespace Slip.EventHandlers
 {
@@ -77,7 +78,7 @@ namespace Slip.EventHandlers
         {
             button.Click += eventHandler;
         }
-        
+
         private void LagSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             SliderUtils.UpdateLabelFromSlider(_mainWindow.lagLabel, _mainWindow.lagSlider, Utils.Utils.ShowLagValue);
@@ -112,7 +113,7 @@ namespace Slip.EventHandlers
             SliderUtils.UpdateLabelFromSlider(_mainWindow.duplicateLabel,
                 _mainWindow.duplicateChanceSlider, Utils.Utils.ShowChanceValue);
         }
-        
+
         private void TShaperChanceSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             SliderUtils.UpdateLabelFromSlider(_mainWindow.trafficShaperLabel,

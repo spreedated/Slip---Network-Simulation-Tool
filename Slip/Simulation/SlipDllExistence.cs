@@ -1,5 +1,5 @@
-﻿using System.IO;
-using Slip.Interfaces;
+﻿using Slip.Interfaces;
+using System.IO;
 
 namespace Slip.Simulation
 {
@@ -11,7 +11,7 @@ namespace Slip.Simulation
         {
             this.dllPath = dllPath;
         }
-        
+
         public bool CheckFileExistence()
         {
             return File.Exists(dllPath);

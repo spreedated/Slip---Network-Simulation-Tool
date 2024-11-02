@@ -7,7 +7,7 @@
             bool filterValid = WinDivert.CheckFilter(filter);
             return filterValid;
         }
-        
+
         internal static string GetFilter(bool isCustomCheckboxChecked, string customFilter, string presetFilter)
         {
             if (isCustomCheckboxChecked) return customFilter;
