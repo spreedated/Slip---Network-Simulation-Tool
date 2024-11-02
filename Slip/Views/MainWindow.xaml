@@ -746,7 +746,7 @@
                                 BorderBrush="{x:Null}"
                                 Margin="10,0,0,0"
                                 Command="{Binding AssignCommand}"/>
-                        <Button Content="Clear" d:Content="Assign"
+                        <Button Content="Clear" d:Content="Clear"
                                 IsEnabled="{Binding StartStopHotkey.IsHotkeyAssigned}" d:IsEnabled="True"
                                 Width="120"
                                 Background="#D3D5CD"
