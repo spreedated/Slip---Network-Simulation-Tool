@@ -1,6 +1,8 @@
-﻿using Slip.Theming;
+﻿using Slip.Logic;
+using Slip.Theming;
 using Slip.Utils;
 using Slip.Views;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -29,6 +31,7 @@ namespace Slip.EventHandlers
         {
             StartEventHandler();
             ChangeThemeEventHandler();
+            ChangeCommandPromptEventHandler();
 
             TrafficShaperEventHandlers();
             ShuffleEventHandlers();
@@ -77,6 +80,11 @@ namespace Slip.EventHandlers
         private void ChangeThemeEventHandler()
         {
             OnClick(_mainWindow.changeThemeButton, ChangeThemeButton_OnClick);
+        }
+
+        private void ChangeCommandPromptEventHandler()
+        {
+            OnClick(_mainWindow.changeCommandPromptButton, ChangeCommandPromptButton_OnClick);
         }
 
         private void StartEventHandler()
@@ -145,6 +153,19 @@ namespace Slip.EventHandlers
 
             themeChanger.ChangeTheme();
             backgroundChanger.ChangeBackground();
+        }
+
+        private void ChangeCommandPromptButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Globals.Config.ShowCommandPrompt ^= true;
+            Task.Run(Globals.SaveConfig);
+
+            if (ApplicationState.IsProgramRunning(_mainWindow.startButton))
+            {
+                this.StartButton_OnClick(this, null);
+                _mainWindow.SimulationController.ResetSimulation();
+                this.StartButton_OnClick(this, null);
+            }
         }
 
         private void ApplyLagChance_OnClick(object sender, RoutedEventArgs e)

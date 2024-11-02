@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:local="clr-namespace:Slip"
         mc:Ignorable="d"
         Title="{Binding Title}" d:Title="Slip"
@@ -18,17 +19,37 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
+        Background="{DynamicResource MaterialDesignBackground}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        ResizeMode="NoResize"
+        Visibility="{Binding IsWindowVisible, Converter={StaticResource BooleanToVisibilityConverter}, Mode=TwoWay}"
+        ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen"
         KeyDown="Window_KeyDown">
-    
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
-    
+
     <Grid>
+        <tb:TaskbarIcon IconSource="/DALL·E-2023-01-05-22.07.11.ico">
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{Binding ToggleWindowCommand}">
+                        <MenuItem.Style>
+                            <Style TargetType="MenuItem" BasedOn="{StaticResource MaterialDesignMenuItem}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsWindowVisible, Mode=OneWay}" Value="True">
+                                        <Setter Property="Header" Value="Hide"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsWindowVisible, Mode=OneWay}" Value="False">
+                                        <Setter Property="Header" Value="Show"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </MenuItem.Style>
+                    </MenuItem>
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
         <!-- FF002D -->
         <dragablz:TabablzControl x:Name="tabControl" BorderBrush="#D3D5CD" Background="#ECECEC" SelectedIndex="0" FixedHeaderCount="2" Visibility="{Binding IsLoading, Converter={vl:ReverseBoolToVisibilityConverter}}" d:Visibility="Visible">
             <TabItem Header="MAIN">
@@ -39,19 +60,28 @@
                             <TextBlock Name="filterBanner" Text="FILTER" FontFamily="Segoe UI Semibold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF2F2C2F"></TextBlock>
                         </Grid>
 
-                        <WrapPanel Margin="700, 0, 0, 0">
-                            <Label Margin="0, 30, 0, 0"
-                                       Content="Light"
-                                       FontSize="12"></Label>
-                            <ToggleButton x:Name="changeThemeButton"
-                                              Margin="0, 30, 0, 0"
-                                              Width="60"></ToggleButton>
-                            <Label Margin="0, 30, 0, 0" 
-                                       Content="Dark"
-                                       FontSize="12"></Label>
-                        </WrapPanel>
-                    </WrapPanel>
+                        <StackPanel>
+                            <WrapPanel Margin="700, 0, 0, 0">
+                                <Label Margin="0, 30, 0, 0"
+                                           Content="Light"
+                                           FontSize="12"></Label>
+                                <ToggleButton x:Name="changeThemeButton"
+                                                  Margin="0, 30, 0, 0"
+                                                  Width="60"></ToggleButton>
+                                <Label Margin="0, 30, 0, 0" 
+                                           Content="Dark"
+                                           FontSize="12"></Label>
+                            </WrapPanel>
 
+                            <Label Content="Command Prompt" FontSize="12" Margin="700,10,0,0"/>
+
+                            <WrapPanel Margin="700, 0, 0, 0">
+                                <Label Content="Hide" FontSize="12"/>
+                                <ToggleButton x:Name="changeCommandPromptButton" Width="60"/>
+                                <Label Content="Show" FontSize="12"/>
+                            </WrapPanel>
+                        </StackPanel>
+                    </WrapPanel>
 
                     <WrapPanel>
                         <Label Content="Presets" 
@@ -61,7 +91,7 @@
                                    HorizontalAlignment="Left" 
                                    Margin="40, 0, 0, 0"/>
 
-                        <ComboBox Name="presetsBox" VerticalAlignment="Center" HorizontalAlignment="Left" Width="120" FontSize="10" Margin="80, 0, 0, 0" SelectedIndex="0">
+                        <ComboBox Name="presetsBox" Foreground="{DynamicResource MaterialDesignBody}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="120" FontSize="10" Margin="80, 0, 0, 0" SelectedIndex="0">
                             <ComboBoxItem>All traffic</ComboBoxItem>
                             <ComboBoxItem>Incoming Packets</ComboBoxItem>
                             <ComboBoxItem>Outgoing Packets</ComboBoxItem>
@@ -118,6 +148,7 @@
                                       FontSize="11"
                                       FontFamily="Segoe UI Semilight"
                                       Margin="40, 0, 0, 0"
+                                      Foreground="{DynamicResource MaterialDesignBody}"
                                       IsChecked="False"></CheckBox>
 
                         <TextBox Name="customFilter"
@@ -202,12 +233,14 @@
                                               Name="lagInbound"
                                               Margin="0, 0, 0, 0"
                                               FontSize="12"
+                                              Foreground="{DynamicResource MaterialDesignBody}"
                                               IsChecked="True"></CheckBox>
 
                         <CheckBox Content="Outgoing"
                                               Name="lagOutbound"
                                               Margin="40, 0, 0, 0"
                                               FontSize="12"
+                                              Foreground="{DynamicResource MaterialDesignBody}"
                                               IsChecked="True"></CheckBox>
 
                         <Label Content="Delay:"
@@ -270,12 +303,14 @@
                                               Margin="0, 20, 0, 0"
                                               Name="dropInbound"
                                               FontSize="12"
+                                              Foreground="{DynamicResource MaterialDesignBody}"
                                               IsChecked="True"></CheckBox>
 
                         <CheckBox Content="Outgoing"
                                               Margin="40, 20, 0, 0"
                                               Name="dropOutbound"
                                               FontSize="12"
+                                              Foreground="{DynamicResource MaterialDesignBody}"
                                               IsChecked="True"></CheckBox>
 
                         <Label Content="Chance:"
@@ -336,12 +371,14 @@
                                               Margin="0, 20, 0, 0"
                                               Name="throttleInbound"
                                               FontSize="12"
+                                              Foreground="{DynamicResource MaterialDesignBody}"
                                               IsChecked="True"></CheckBox>
 
                         <CheckBox Content="Outgoing"
                                               Margin="40, 20, 0, 0"
                                               Name="throttleOutbound"
                                               FontSize="12"
+                                              Foreground="{DynamicResource MaterialDesignBody}"
                                               IsChecked="True"></CheckBox>
 
                         <Label Content="Chance:"
@@ -398,6 +435,7 @@
                         <CheckBox Name="throttleDropCheckbox"
                                           Content="Drop?"
                                           Width="50"
+                                          Foreground="{DynamicResource MaterialDesignBody}"
                                           Margin="0, 20, 0, 0"></CheckBox>
 
                     </WrapPanel>
@@ -426,12 +464,14 @@
                                       Margin="0, 20, 0, 0"
                                       Name="encryptInbound"
                                       FontSize="12"
+                                      Foreground="{DynamicResource MaterialDesignBody}"
                                       IsChecked="True"></CheckBox>
 
                         <CheckBox Content="Outgoing"
                                       Margin="40, 20, 0, 0"
                                       Name="encryptOutbound"
                                       FontSize="12"
+                                      Foreground="{DynamicResource MaterialDesignBody}"
                                       IsChecked="True"></CheckBox>
 
                         <Label Content="Chance:"
@@ -494,12 +534,14 @@
                                       Margin="0, 20, 0, 0"
                                       Name="shuffleInbound"
                                       FontSize="12"
+                                      Foreground="{DynamicResource MaterialDesignBody}"
                                       IsChecked="True"></CheckBox>
 
                         <CheckBox Content="Outgoing"
                                       Margin="40, 20, 0, 0"
                                       Name="shuffleOutbound"
                                       FontSize="12"
+                                      Foreground="{DynamicResource MaterialDesignBody}"
                                       IsChecked="True"></CheckBox>
 
                         <Label Content="Chance:"
@@ -578,12 +620,14 @@
                                       Margin="0, 20, 0, 0"
                                       Name="duplicateInbound"
                                       FontSize="12"
+                                      Foreground="{DynamicResource MaterialDesignBody}"
                                       IsChecked="True"></CheckBox>
 
                         <CheckBox Content="Outgoing"
                                       Margin="40, 20, 0, 0"
                                       Name="duplicateOutbound"
                                       FontSize="12"
+                                      Foreground="{DynamicResource MaterialDesignBody}"
                                       IsChecked="True"></CheckBox>
 
                         <Label Content="Chance:"
@@ -659,12 +703,14 @@
                                       Margin="0, 20, 0, 0"
                                       Name="trafficShaperInbound"
                                       FontSize="12"
+                                      Foreground="{DynamicResource MaterialDesignBody}"
                                       IsChecked="True"></CheckBox>
 
                         <CheckBox Content="Outgoing"
                                       Margin="40, 20, 0, 0"
                                       Name="trafficShaperOutbound"
                                       FontSize="12"
+                                      Foreground="{DynamicResource MaterialDesignBody}"
                                       IsChecked="True"></CheckBox>
 
                         <Label Content="Chance:"

@@ -3,12 +3,13 @@
     <TargetFramework>net8.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
     <ApplicationIcon>DALL·E-2023-01-05-22.07.11.ico</ApplicationIcon>
-    <Version>1.1.0</Version>
+    <Version>1.1.0.1</Version>
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <SupportedOSPlatformVersion>6.1</SupportedOSPlatformVersion> <!-- Windows 7 -->
     <NoWarn>1701;1702;IDE0290</NoWarn>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <OutputPath>bin\x64\Debug\</OutputPath>
@@ -17,10 +18,13 @@
     <OutputPath>bin\x64\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="DALL·E-2023-01-05-22.07.11.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
     <PackageReference Include="Dragablz" Version="0.0.3.234" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.1" />
-    <PackageReference Include="MaterialDesignColors" Version="2.0.9" />
+    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="2.0.1" />
     <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
     <PackageReference Include="NHotkey" Version="3.0.0" />
     <PackageReference Include="NHotkey.Wpf" Version="3.0.0" />
@@ -43,5 +47,12 @@
     <EmbeddedResource Include="..\Libraries\Extern\WinDivert.dll">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\Libraries\Extern\WinDivert.lib">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Libraries\Extern\WinDivert64.sys">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Resource Include="DALL·E-2023-01-05-22.07.11.ico" />
   </ItemGroup>
 </Project>

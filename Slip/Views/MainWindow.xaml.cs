@@ -49,7 +49,7 @@ namespace Slip.Views
             themeChanger = new LightThemeChanger();
             themeChanger.ChangeTheme();
 
-            IBackgroundChanger backgroundChanger = new BackgroundChanger(tabControl, "#ECECEC");
+            BackgroundChanger backgroundChanger = new(this.tabControl, "#ECECEC");
             backgroundChanger.ChangeBackground();
 
             // 255, 155, 0

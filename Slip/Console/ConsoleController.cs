@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows;
+using Slip.Logic;
 
 namespace Slip.Console
 {
@@ -33,7 +34,14 @@ namespace Slip.Console
                     return false;
                 }
 
-                ConsoleProcess = Process.Start(exePath);
+                ProcessStartInfo psi = new(exePath)
+                {
+                    UseShellExecute = true,
+                    WindowStyle = Globals.Config.ShowCommandPrompt ? ProcessWindowStyle.Normal : ProcessWindowStyle.Hidden
+                };
+
+                ConsoleProcess = Process.Start(psi);
+                ConsoleProcess.EnableRaisingEvents = true;
 
                 // Make sure that the C# ReadFromPipe() code is running
                 // and waiting for a connection to the named pipe

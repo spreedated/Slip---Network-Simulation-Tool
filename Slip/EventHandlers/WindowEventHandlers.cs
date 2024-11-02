@@ -1,6 +1,8 @@
 ﻿using Slip.Views;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using System.Windows.Documents;
 
 namespace Slip.EventHandlers
 {
@@ -30,8 +32,9 @@ namespace Slip.EventHandlers
                 Thread.Sleep(500);
             }
 
-            Process[] processes = Process.GetProcessesByName("SlipClient");
-            if (processes.Length > 0)
+            List<Process> processes = [..Process.GetProcessesByName("SlipConsole")];
+            processes.AddRange(Process.GetProcessesByName("SlipClient"));
+            if (processes.Count > 0)
                 processes[0].Kill();
             //processes[0].CloseMainWindow();
             //consoleProcess.Kill();

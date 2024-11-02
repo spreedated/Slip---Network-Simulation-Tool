@@ -1,6 +1,7 @@
 ﻿using Slip.Console;
 using Slip.Interfaces;
 using Slip.Modules;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Controls;
@@ -30,11 +31,28 @@ namespace Slip.Simulation
                 first = false;
             }
 
+            ConsoleController.ConsoleProcess.Exited += (sender, e) =>
+            {
+                Debug.Print("Console gone. Reduced to atoms!");
+
+                first = true;
+            };
+
             // Start new simulation process
             _workerThread = new Thread(() => startProgram(filter, configArray, configArray.Length));
             _workerThread.Start();
 
             statusLabel.Content = "ENABLED";
+        }
+
+        public static void Reset()
+        {
+            first = true;
+
+            if (!ConsoleController.ConsoleProcess.HasExited)
+            {
+                ConsoleController.ConsoleProcess.Kill();
+            }
         }
     }
 }

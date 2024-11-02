@@ -8,6 +8,7 @@ namespace Slip.Simulation
     internal class SimulationController
     {
         private MainWindow _mainWindow;
+        private readonly SlipRunner _slipRunner;
         private readonly IStartSimulation _startSimulation;
         private readonly IStopSimulation _stopSimulation;
 
@@ -19,8 +20,8 @@ namespace Slip.Simulation
             (Path.GetDirectoryName(System.AppContext.BaseDirectory),
                 "Slip2.dll"));
 
-            IRunSlip slipRunner = new SlipRunner(_mainWindow.statusLabel);
-            _startSimulation = new StartSlip(fileExistence, moduleConfigManager, slipRunner);
+            _slipRunner = new SlipRunner(_mainWindow.statusLabel);
+            _startSimulation = new StartSlip(fileExistence, moduleConfigManager, _slipRunner);
             _stopSimulation = new StopSlip(_mainWindow.startButton);
         }
 
@@ -38,6 +39,14 @@ namespace Slip.Simulation
         {
             _mainWindow.statusLabel.Content = "DISABLED";
             return _stopSimulation.Stop();
+        }
+
+        public bool ResetSimulation()
+        {
+            _mainWindow.statusLabel.Content = "DISABLED";
+            bool stopped = _stopSimulation.Stop();
+            SlipRunner.Reset();
+            return stopped;
         }
     }
 }
