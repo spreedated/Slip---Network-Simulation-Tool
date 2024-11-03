@@ -7,7 +7,7 @@
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <SupportedOSPlatformVersion>6.1</SupportedOSPlatformVersion> <!-- Windows 7 -->
-    <NoWarn>1701;1702;IDE0290</NoWarn>
+    <NoWarn>1701;1702;IDE0290;IDE0063</NoWarn>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
