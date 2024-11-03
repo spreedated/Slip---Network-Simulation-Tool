@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Slip.Logic;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows;
-using Slip.Logic;
 
 namespace Slip.Console
 {

@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Slip.Models;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.Windows;
-using Slip.Models;
 
 namespace Slip.Logic;
 
