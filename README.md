@@ -2,27 +2,13 @@
 
 Slip is an advanced Windows application made to simulate different network conditions like latency, duplicate, shuffle, encrypt, drop, and traffic shaper bandwitdth on sending and receiving packets, with best-in-class accuracy. Using WinDivert library, Slip intercepts packets before they hit the network stack for real-time modifications according to the enabled modules chosen by the user. The graphical user interface is powered by a C# interface, while the backend code that governs the functionality of the application is written in a C/C++ dll. Furthermore, a console is available to monitor messages sent from the Slip dll through a named pipe. Slip boasts powerful and cutting-edge features sure to exceed any network simulation expectations.
 
-![Gif](https://github.com/rmdezz/Slip---Network-Simulation-Tool/blob/master/demo.gif)
+![Gif](demo.gif)
 
-
-
-## Installation
-To install Slip, first download the lastest release package and its dependencies (WinDivert.dll, libcrypto-3-x64.dll, PipeReader.dll and Slip.dll). Then, simply launch the Slip.exe file. After the initial setup is complete, you'll be able to start taking advantage of Slip's powerful network simulation capabilities. For the best performance, make sure to have all dependencies installed and up-to-date.
-```bash
-PipeReader.dll
-Slip.dll
-Slip.exe
-SlipClient.exe
-WinDivert.dll
-WinDivert64.sys
-libcrypto-3-x64.dll
-```
-    
 ## Usage
 The usage section of Slip is designed to enable users to quickly and easily utilize the application's powerful network simulation capabilities. The Modules section allows users to choose from seven different simulation options.
 
 ## Features
-![Features](https://github.com/rmdezz/Slip---Network-Simulation-Tool/blob/master/screenshots/Screenshot%202023-01-10%20213315.jpg)
+![Features](screenshots/Screenshot%202023-01-10%20213315.jpg)
 ### Lag
 Enabling this module allows the user to introduce a delay to the packets passing through the network, simulating a slower connection. This can be useful for testing an application's ability to handle latency or for simulating a long-distance network connection. The delay can be adjusted by using the delay slider, which allows the user to specify the amount of delay in milliseconds. The user can also select whether this applies to inbound or outbound packets, in this way, simulating different network scenarios. Additionally, this feature can also be used to test the robustness of a network protocol and identify if it can handle high latencies without failing, or if any optimization or redesign is necessary.
 ### Drop
@@ -44,15 +30,15 @@ The Filtering section provides the ability to selectively apply the modules' fun
 
 For instructions on creating a personalized filter, refer to the WinDivert Filter Language documentation, which can be found at the following link: [WinDivert Filter Language](https://reqrypt.org/windivert-doc.html#filter_language)
 
-![Filtering](https://github.com/rmdezz/Slip---Network-Simulation-Tool/blob/master/screenshots/Screenshot%202023-01-10%20213215.jpg)
+![Filtering](screenshots/Screenshot%202023-01-10%20213215.jpg)
 
 ## Screenshots
 
-![Screenshot1_black](https://github.com/rmdezz/Slip---Network-Simulation-Tool/blob/master/screenshots/Screenshot%202023-01-10%20213232.jpg)
-![Screenshot2_black](https://github.com/rmdezz/Slip---Network-Simulation-Tool/blob/master/screenshots/Screenshot%202023-01-10%20213245.jpg)
-![Screenshot1_white](https://github.com/rmdezz/Slip---Network-Simulation-Tool/blob/master/screenshots/Screenshot%202023-01-10%20213215.jpg)
-![Screenshot2_white](https://github.com/rmdezz/Slip---Network-Simulation-Tool/blob/master/screenshots/Screenshot%202023-01-10%20213315.jpg)
-![Screenshot3](https://github.com/rmdezz/Slip---Network-Simulation-Tool/blob/master/screenshots/Screenshot%202023-01-10%20213141.jpg)
+![Screenshot1_black](screenshots/Screenshot%202023-01-10%20213232.jpg)
+![Screenshot2_black](screenshots/Screenshot%202023-01-10%20213245.jpg)
+![Screenshot1_white](screenshots/Screenshot%202023-01-10%20213215.jpg)
+![Screenshot2_white](screenshots/Screenshot%202023-01-10%20213315.jpg)
+![Screenshot3](screenshots/Screenshot%202023-01-10%20213141.jpg)
 
 
 
