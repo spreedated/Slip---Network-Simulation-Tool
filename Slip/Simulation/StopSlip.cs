@@ -1,9 +1,11 @@
 ﻿using Slip.Interfaces;
 using Slip.Logic;
+using Slip.ViewModels;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Slip.Simulation
@@ -25,6 +27,7 @@ namespace Slip.Simulation
             stopProgram(); // call the function dll
             Thread.Sleep(250);
             stateButton.Content = "Start";
+            ((MainWindowViewModel)Application.Current.MainWindow.DataContext).ToggleTaskbarIcon();
 
             if (!Globals.Config.ShowCommandPrompt)
             {

@@ -1,9 +1,11 @@
 ﻿using Slip.Console;
 using Slip.Interfaces;
 using Slip.Modules;
+using Slip.ViewModels;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Slip.Simulation
@@ -43,6 +45,7 @@ namespace Slip.Simulation
             _workerThread.Start();
 
             statusLabel.Content = "ENABLED";
+            ((MainWindowViewModel)Application.Current.MainWindow.DataContext).ToggleTaskbarIcon();
         }
 
         public static void Reset()

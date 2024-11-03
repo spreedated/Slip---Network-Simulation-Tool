@@ -19,6 +19,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="DALL·E-2023-01-05-22.07.11.ico" />
+    <None Remove="icon_active.ico" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
@@ -54,5 +55,6 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <Resource Include="DALL·E-2023-01-05-22.07.11.ico" />
+    <Resource Include="icon_active.ico" />
   </ItemGroup>
 </Project>

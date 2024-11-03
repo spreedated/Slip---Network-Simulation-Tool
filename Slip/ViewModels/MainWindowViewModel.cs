@@ -3,14 +3,20 @@ using CommunityToolkit.Mvvm.Input;
 using Slip.Logic;
 using Slip.Utils;
 using Slip.Views;
+using System;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Slip.ViewModels;
 
 internal partial class MainWindowViewModel : ObservableObject
 {
+    private static ImageSource defaultTraybarIcon = new BitmapImage(new Uri("pack://application:,,,/DALL·E-2023-01-05-22.07.11.ico"));
+    private static ImageSource activeTraybarIcon = new BitmapImage(new Uri("pack://application:,,,/icon_active.ico"));
+
     [ObservableProperty]
     private bool isLoading = true;
 
@@ -22,6 +28,9 @@ internal partial class MainWindowViewModel : ObservableObject
 
     [ObservableProperty]
     private bool toggleShowCommandPrompt = Globals.Config.ShowCommandPrompt;
+
+    [ObservableProperty]
+    private ImageSource traybarIcon = defaultTraybarIcon;
 
     public MainWindowViewModel()
     {
@@ -42,5 +51,16 @@ internal partial class MainWindowViewModel : ObservableObject
     {
         Globals.Config.ShowCommandPrompt ^= true;
         Task.Run(Globals.SaveConfig);
+    }
+
+    public void ToggleTaskbarIcon()
+    {
+        if (this.TraybarIcon.Equals(defaultTraybarIcon))
+        {
+            this.TraybarIcon = activeTraybarIcon;
+            return;
+        }
+
+        this.TraybarIcon = defaultTraybarIcon;
     }
 }
