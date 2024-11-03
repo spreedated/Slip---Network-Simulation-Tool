@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows;
 using Slip.Models;
 
 namespace Slip.Logic;
@@ -10,7 +11,7 @@ namespace Slip.Logic;
 internal static class Globals
 {
     internal static bool ResourceDeployed { get; set; }
-    internal static string ConfigPath { get; } = Path.Combine(Directory.GetCurrentDirectory(), "Config.cfg");
+    internal static string ConfigPath { get; } = Path.Combine(AppContext.BaseDirectory, "Config.cfg");
     internal static Config Config { get; private set; }
 
     internal static async Task LoadConfig()
