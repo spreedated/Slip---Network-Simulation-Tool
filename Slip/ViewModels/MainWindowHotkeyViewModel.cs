@@ -2,6 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using Slip.Logic;
 using Slip.Views;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace Slip.ViewModels
 {
@@ -40,6 +42,20 @@ namespace Slip.ViewModels
         public MainWindowHotkeyViewModel()
         {
             this.StartStopHotkey = new("StartStop", () => this.MainWindowInstance.UiEventHandlers._buttonEventHandlers.StartButton_OnClick(this, null));
+
+            Task.Run(async () =>
+            {
+                while (!Globals.IsConfigLoaded)
+                {
+                    await Task.Delay(500);
+                }
+
+                if (Globals.Config.StartStopHotkeyKey != default)
+                {
+                    this.StartStopHotkey.AssignHotkeyCombination(Globals.Config.StartStopHotkeyKey, Globals.Config.StartStopHotkeyModifierKeys);
+                    this.FinishHotkeyAssigning(false);
+                }
+            });
         }
         #endregion
 
@@ -48,16 +64,24 @@ namespace Slip.ViewModels
             if (value)
             {
                 this.StartStopHotkey.Activate();
+                Globals.Config.IsStartStopHotkeyEnabled = true;
+                Task.Run(Globals.SaveConfig);
+
                 return;
             }
 
             this.StartStopHotkey.Deactivate();
+            Globals.Config.IsStartStopHotkeyEnabled = false;
+            Task.Run(Globals.SaveConfig);
         }
 
         [RelayCommand]
         private void Assign()
         {
             this.StartStopHotkey.Clear();
+            this.Hotkey = null;
+            this.OnPropertyChanged(nameof(this.StartStopHotkey));
+
             this.IsHotkeyAssigning = true;
             this.HotkeyButtonText = "Press keys";
         }
@@ -68,16 +92,32 @@ namespace Slip.ViewModels
             this.StartStopHotkey.Clear();
             this.Hotkey = null;
             this.OnPropertyChanged(nameof(this.StartStopHotkey));
+
+            this.SaveStartStopHotkeyToConfig();
         }
 
-        public void FinishHotkeyAssigning()
+        public void FinishHotkeyAssigning(bool autoEnable = true)
         {
             this.IsHotkeyAssigning = false;
             this.HotkeyButtonText = "Assign";
-            this.IsStartStopHotkeyEnabled = false;
-            this.IsStartStopHotkeyEnabled = true;
+            if (autoEnable)
+            {
+                this.IsStartStopHotkeyEnabled = false;
+                this.IsStartStopHotkeyEnabled = true;
+                this.OnPropertyChanged(nameof(this.StartStopHotkey));
+            }
             this.Hotkey = this.StartStopHotkey.ToString();
-            this.OnPropertyChanged(nameof(this.StartStopHotkey));
+
+            this.SaveStartStopHotkeyToConfig();
+        }
+
+        private void SaveStartStopHotkeyToConfig()
+        {
+            Globals.Config.StartStopHotkeyKey = this.StartStopHotkey.HotkeyKey;
+            Globals.Config.StartStopHotkeyModifierKeys = this.StartStopHotkey.Modifierkeys;
+            Globals.Config.IsStartStopHotkeyEnabled = this.StartStopHotkey.IsEnabled;
+
+            Task.Run(Globals.SaveConfig);
         }
 
         public void RefreshHotkeyString()

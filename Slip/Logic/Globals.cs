@@ -12,6 +12,7 @@ internal static class Globals
     internal static bool ResourceDeployed { get; set; }
     internal static string ConfigPath { get; } = Path.Combine(AppContext.BaseDirectory, "Config.cfg");
     internal static Config Config { get; private set; }
+    internal static bool IsConfigLoaded { get; private set; }
 
     internal static async Task LoadConfig()
     {
@@ -21,6 +22,7 @@ internal static class Globals
             {
                 string json = await File.ReadAllTextAsync(ConfigPath);
                 Config = JsonSerializer.Deserialize<Config>(json);
+                IsConfigLoaded = true;
 
                 return;
             }
@@ -34,13 +36,21 @@ internal static class Globals
         Config = new();
 
         await SaveConfig();
+
+        IsConfigLoaded = true;
     }
 
     internal static async Task SaveConfig()
     {
         try
         {
-            await File.WriteAllTextAsync(ConfigPath, JsonSerializer.Serialize(Config));
+            using (Stream s = File.Open(ConfigPath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite))
+            {
+                using (StreamWriter w = new(s))
+                {
+                    await w.WriteAsync(JsonSerializer.Serialize(Config));
+                }
+            }
         }
         catch (Exception ex)
         {

@@ -780,7 +780,9 @@
                     <vm:MainWindowHotkeyViewModel/>
                 </TabItem.DataContext>
                 <StackPanel>
-                    <Grid Height="30" Margin="10"></Grid>
+                    <Grid Height="30" Margin="10">
+                        <Label Content="Press [Escape] to assign" />
+                    </Grid>
                     <WrapPanel Margin="40,0,0,0">
                         <ToggleButton IsEnabled="{Binding StartStopHotkey.IsHotkeyAssigned}" IsChecked="{Binding IsStartStopHotkeyEnabled}" Style="{StaticResource MaterialDesignSwitchToggleButton}">
                             <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
