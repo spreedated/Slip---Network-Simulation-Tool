@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
-using System.Windows.Documents;
 
 namespace Slip.EventHandlers
 {
@@ -32,7 +31,7 @@ namespace Slip.EventHandlers
                 Thread.Sleep(500);
             }
 
-            List<Process> processes = [..Process.GetProcessesByName("SlipConsole")];
+            List<Process> processes = [.. Process.GetProcessesByName("SlipConsole")];
             processes.AddRange(Process.GetProcessesByName("SlipClient"));
             if (processes.Count > 0)
                 processes[0].Kill();

@@ -1,8 +1,6 @@
-﻿using Slip.Logic;
-using Slip.Theming;
+﻿using Slip.Theming;
 using Slip.Utils;
 using Slip.Views;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;

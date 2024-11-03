@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using Slip.Logic;
 using Slip.Views;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace Slip.ViewModels
 {

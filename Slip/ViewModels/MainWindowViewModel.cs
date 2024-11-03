@@ -1,12 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Slip.Logic;
-using Slip.Utils;
-using Slip.Views;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -39,7 +36,8 @@ internal partial class MainWindowViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void OnToggleWindow() {
+    private void OnToggleWindow()
+    {
         this.IsWindowVisible ^= true;
         Globals.Config.ShowWindow ^= true;
 
