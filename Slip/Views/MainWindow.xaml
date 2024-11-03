@@ -77,7 +77,14 @@
 
                             <WrapPanel Margin="700, 0, 0, 0">
                                 <Label Content="Hide" FontSize="12"/>
-                                <ToggleButton x:Name="changeCommandPromptButton" Width="60"/>
+                                <ToggleButton Command="{Binding ChangeCommandPromptButtonCommand}" IsChecked="{Binding ToggleShowCommandPrompt}" Width="60" Style="{StaticResource MaterialDesignSwitchToggleButton}">
+                                    <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+                                        <SolidColorBrush Color="Green" />
+                                    </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+                                    <materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                                        <SolidColorBrush Color="Red" />
+                                    </materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                                </ToggleButton>
                                 <Label Content="Show" FontSize="12"/>
                             </WrapPanel>
                         </StackPanel>
