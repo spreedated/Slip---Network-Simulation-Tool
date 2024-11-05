@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Logging;
+using Serilog.Extensions.Logging;
 using Slip.Logic;
 using Slip.Views;
 using System.Threading.Tasks;
@@ -8,6 +10,8 @@ namespace Slip.ViewModels
 {
     internal partial class MainWindowHotkeyViewModel : ObservableObject
     {
+        private readonly ILogger logger = null;
+
         [ObservableProperty]
         internal Hotkey startStopHotkey;
 
@@ -40,7 +44,8 @@ namespace Slip.ViewModels
         #region Constructor
         public MainWindowHotkeyViewModel()
         {
-            this.StartStopHotkey = new("StartStop", () => this.MainWindowInstance.UiEventHandlers._buttonEventHandlers.StartButton_OnClick(this, null));
+            this.logger = new SerilogLoggerFactory().CreateLogger("mainviewmodelhotkey");
+            this.StartStopHotkey = new("StartStop", () => this.MainWindowInstance.UiEventHandlers._buttonEventHandlers.StartButton_OnClick(this, null), this.logger);
 
             Task.Run(async () =>
             {
@@ -55,6 +60,8 @@ namespace Slip.ViewModels
                     this.FinishHotkeyAssigning(false);
                 }
             });
+
+            this.logger?.LogTrace("Hotkey ViewModel loaded");
         }
         #endregion
 

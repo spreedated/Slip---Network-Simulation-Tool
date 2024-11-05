@@ -1,4 +1,8 @@
-﻿using Slip.Logic;
+﻿using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Events;
+using Serilog.Extensions.Logging;
+using Slip.Logic;
 using Slip.Views;
 using System;
 using System.IO;
@@ -10,6 +14,8 @@ namespace Slip
     /// <summary>Interaction logic for App.xaml</summary>
     public partial class App : Application
     {
+        private readonly static LogEventLevel level = LogEventLevel.Verbose;
+
         protected override void OnStartup(StartupEventArgs e)
         {
             Task.Run(Globals.LoadConfig).ConfigureAwait(false).GetAwaiter().GetResult();
@@ -25,6 +31,18 @@ namespace Slip
 
                 Globals.ResourceDeployed = true;
             });
+
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.FromLogContext()
+                .MinimumLevel.Verbose()
+                .WriteTo.Debug(restrictedToMinimumLevel: level)
+                .Enrich.WithProperty("application", typeof(App).Assembly.GetName().Name)
+                .Enrich.WithProperty("version", typeof(App).Assembly.GetName().Version)
+                .CreateLogger();
+
+            Microsoft.Extensions.Logging.ILogger logger = new SerilogLoggerFactory().CreateLogger("application");
+
+            logger.LogTrace("Application started");
 
             base.OnStartup(e);
         }
