@@ -44,7 +44,7 @@ internal static class Globals
     {
         try
         {
-            using (Stream s = File.Open(ConfigPath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite))
+            using (Stream s = File.Open(ConfigPath, File.Exists(ConfigPath) ? FileMode.Truncate : FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite))
             {
                 using (StreamWriter w = new(s))
                 {

@@ -11,8 +11,8 @@ namespace Slip.ViewModels;
 
 internal partial class MainWindowViewModel : ObservableObject
 {
-    private static ImageSource defaultTraybarIcon = new BitmapImage(new Uri("pack://application:,,,/DALL·E-2023-01-05-22.07.11.ico"));
-    private static ImageSource activeTraybarIcon = new BitmapImage(new Uri("pack://application:,,,/icon_active.ico"));
+    private readonly static ImageSource defaultTraybarIcon = new BitmapImage(new Uri(Constants.DEFAULT_TRAYBAR_ICON_URI));
+    private readonly static ImageSource activeTraybarIcon = new BitmapImage(new Uri(Constants.ACTIVE_TRAYBAR_ICON_URI));
 
     [ObservableProperty]
     private bool isLoading = true;
@@ -45,7 +45,7 @@ internal partial class MainWindowViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void ChangeCommandPromptButton()
+    private static void ChangeCommandPromptButton()
     {
         Globals.Config.ShowCommandPrompt ^= true;
         Task.Run(Globals.SaveConfig);
